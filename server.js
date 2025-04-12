@@ -5,11 +5,13 @@ const bodyParser = require("body-parser");
 const req = require("express/lib/request");
 const { stringify } = require("nodemon/lib/utils");
 const app = express();
-
+//Connects to a MongoDB Atlas database using Mongoose.
+//mongoose (ODM) Object Data Mapper (maps between no sql and database)
 const DB =
   "mongodb+srv://rajiv_546:Rajiv%40123@yeahboi.fz4z7.mongodb.net/yeahboii?retryWrites=true&w=majority";
 mongoose
   .connect(DB, {
+    //parses form data 
     useNewUrlParser: true,
     // useCreateIndex: true,
     useUnifiedTopology: true,
@@ -20,6 +22,7 @@ mongoose
   })
   .catch((err) => console.log("no connection"));
 
+//schema definition (stores admin email and password)
 const admin = mongoose.Schema({
   password: String,
   email: String,
@@ -28,6 +31,7 @@ const admin = mongoose.Schema({
 const mdb = mongoose.model("adminDetails", admin);
 ///////------------------///
 
+//app configuration 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/"));
